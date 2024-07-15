@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://frontn.netlify.app/",
+    origin: "https://frontn.netlify.app",
     credentials: true,
     methods: ["GET", "POST", "PUT"],
   })
