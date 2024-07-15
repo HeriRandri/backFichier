@@ -17,6 +17,6 @@ router.put("/reset", auth.reset_pwd);
 router.get("/userL", isAuthenticated, auth.userId);
 router.post("/payment", auth.payments);
 router.get("/check-auth", auth.check_isAuth);
-router.post("/logout", auth.logout);
+// router.post("/logout", auth.logout);
 
 module.exports = router;

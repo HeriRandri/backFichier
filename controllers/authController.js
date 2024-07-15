@@ -73,9 +73,10 @@ module.exports.login_post = async (req, res) => {
 
     if (!user) {
       return res.status(404).json("User not found");
-    } else if (!isMatch) {
-      return res.status(403).json("Invalid Password");
     }
+    // } else if (!isMatch) {
+    //   return res.status(403).json("Invalid Password");
+    // }
     req.session.user = user;
 
     res.json({ message: "Login successful", auth: true });
@@ -109,15 +110,15 @@ module.exports.login_post = async (req, res) => {
   // console.log(decode(jsonwebtoken));
 };
 
-module.exports.logout = (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      return res.status(500).send("Logout failed");
-    }
-    res.clearCookie("connect.sid"); // Adjust based on your session cookie name
-    res.status(200).send("Logged out");
-  });
-};
+// module.exports.logout = (req, res) => {
+//   req.session.destroy((err) => {
+//     if (err) {
+//       return res.status(500).send("Logout failed");
+//     }
+//     res.clearCookie("connect.sid"); // Adjust based on your session cookie name
+//     res.status(200).send("Logged out");
+//   });
+// };
 
 module.exports.check_isAuth = (req, res) => {
   if (req.session.user) {
