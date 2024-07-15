@@ -1,0 +1,14 @@
+[
+  {
+    "username": "hrandri30",
+    "email": "hrandri30@gmail.com",
+    "password": "$2a$10$CWVzh3sFEMK7WtaRrB4t9uEQamcfHAPKFqk7Y3fWnibqM52PciBhS",
+    "role": "user"
+  },
+  {
+    "username": "erik",
+    "email": "erik@inspiratamgmt.com",
+    "password": "$2a$10$YswKk22AxltYfQMrImzHfu09NSOsdnHh3EHEw.OJe6k4ISKQNpGRC",
+    "role": "user"
+  }
+]
