@@ -183,7 +183,7 @@ const filePath = path.join(__dirname, '../model/Utilisateur.json');
 
 module.exports.article_get = async (req, res) => {
   const { category } = req.query;
-  const user = req.session.user;
+  const user = req.user;
   const useService = new UserService(user);
   if (
     (category === "world" || category === "health") &&
@@ -206,7 +206,7 @@ module.exports.article_get = async (req, res) => {
 };
 
 module.exports.devenir_admin = async (req, res, next) => {
-  const user = req.session.user;
+  const user = user;
 
   console.log("User session in devenir_admin:", user);
   try {
@@ -230,7 +230,7 @@ module.exports.devenir_admin = async (req, res, next) => {
 
 module.exports.userId = async (req, res) => {
   try {
-    const userId = req.session.user;
+    const userId = req.user;
     const users = findUseById(userId);
     // const user = await User.findById(userId);
     if (!users) return res.status(404).json("User not found");
