@@ -77,9 +77,9 @@ module.exports.login_post = async (req, res) => {
     // } else if (!isMatch) {
     //   return res.status(403).json("Invalid Password");
     // }
-    req.session.user = user;
+    const token = generateAccessToken(user);
 
-    res.json({ message: "Login successful", auth: true });
+    res.json({ message: "Login successful", auth: true, token });
   } catch (error) {
     res.status(500).json("User not found");
   }
