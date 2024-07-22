@@ -43,7 +43,7 @@ const authenticateToken = (requiredRole) => {
 //   }
 // };
 
-module.exports = { isVip, authenticateToken };
+module.exports = { authenticateToken };
 
 /***
  * const { auth } = require('express-openid-connect');
