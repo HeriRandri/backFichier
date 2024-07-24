@@ -10,5 +10,11 @@
     "email": "erik@inspiratamgmt.com",
     "password": "$2a$10$YswKk22AxltYfQMrImzHfu09NSOsdnHh3EHEw.OJe6k4ISKQNpGRC",
     "role": "user"
+  },
+  {
+    "username": "utilisateur",
+    "email": "erika@inspiratamgmt.com",
+    "password": "$2a$10$knB/HndSsQ9WQtL.ExfLUOuayDa02BDkJcRp8BucDWCB45Hd4K.m.",
+    "role": "user"
   }
 ]

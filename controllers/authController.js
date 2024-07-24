@@ -25,7 +25,6 @@ module.exports.login_get = (req, res) => {
 module.exports.signup_post = async (req, res) => {
   const { username, email, password, role } = req.body;
 
-  // let user = await User.findOne({ email });
   let users = findUseById(email);
   if (users) {
     return res.status(409).send("That email is already registered.");
@@ -34,16 +33,7 @@ module.exports.signup_post = async (req, res) => {
   //+ salt a password ou Argon2id
   const salt = await bcrypt.genSalt();
   const hashPwd = await bcrypt.hash(password, salt);
-
-  // user = new User({
-  //   username,
-  //   email,
-  //   password: hashPwd,
-  //   role: role || "user",
-  // });
-
   saveUser({ username, email, password: hashPwd, role: "user" });
-  // await user.save();
   res.redirect("/login");
 };
 
@@ -67,16 +57,13 @@ const generateAccessToken = (user) => {
 module.exports.login_post = async (req, res) => {
   const { email, password } = req.body;
   try {
-    // const user = await User.findOne({ email });
     const user = findUseById(email);
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!user) {
       return res.status(404).json("User not found");
     }
-    // } else if (!isMatch) {
-    //   return res.status(403).json("Invalid Password");
-    // }
+
     const token = generateAccessToken(user);
 
     res.json({ message: "Login successful", auth: true, token });
@@ -120,15 +107,13 @@ module.exports.login_post = async (req, res) => {
 //   });
 // };
 
-module.exports.check_isAuth = (req, res) => {
-  if (req.session.user) {
-    res.json({ user: req.session.user });
-  } else {
-    res.status(401).json({ message: "Not authentificated" });
-  }
-};
-
-// Adjust the path to your User model
+// module.exports.check_isAuth = (req, res) => {
+//   if (req.session.user) {
+//     res.json({ user: req.session.user });
+//   } else {
+//     res.status(401).json({ message: "Not authentificated" });
+//   }
+// };
 
 module.exports.reset_pwd = async (req, res) => {
   try {
@@ -183,7 +168,9 @@ const filePath = path.join(__dirname, '../model/Utilisateur.json');
 
 module.exports.article_get = async (req, res) => {
   const { category } = req.query;
+  console.log(req.query);
   const user = req.user;
+  // console.log(user);
   const useService = new UserService(user);
   if (
     (category === "world" || category === "health") &&
@@ -210,15 +197,11 @@ module.exports.devenir_admin = async (req, res, next) => {
 
   console.log("User session in devenir_admin:", user);
   try {
-    // const userId = await User.findById(user);
-    // const userId = findUseById(user);
-
     if (!user) {
       return res.status(404).json("User not found");
     }
     user.role = "admin";
     const save = saveUser({ user });
-    // await userId.save();
 
     next();
     res.send({ message: "User promoted to admin successful", data: user.role });
@@ -232,9 +215,9 @@ module.exports.userId = async (req, res) => {
   try {
     const userId = req.user;
     const users = findUseById(userId);
-    // const user = await User.findById(userId);
     if (!users) return res.status(404).json("User not found");
     res.json(users);
+    console.log(users);
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
   }
@@ -244,7 +227,6 @@ module.exports.payments = async (req, res) => {
   console.log(savePaye);
 
   try {
-    // const data = new ClientPaye(req.body);
     const { name, email, tel } = req.body;
     const savePayer = savePaye({ name, email, tel });
     if (savePayer) {
